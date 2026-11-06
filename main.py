@@ -8,7 +8,7 @@ print("========== Cadastros de pedidos (FoodPredict AI) ==========")
 
 while True:
     # adicionar mais 1 dia manualmente
-    pergunta = input("Deseja adicionar mais um dia a lista de pedidos? (y/n): ").lower()[0]
+    pergunta = input("Deseja adicionar mais um dia a lista de pedidos? (y/n): ").lower()
 
 
     #se a resposta for 'n', o 'break' quebra o while e sai do laço
@@ -23,13 +23,13 @@ while True:
 
     else:
         #caso digite qualquer outra entrada
-        print("Opção incálida! Digite apenas 'y' ou 'n'.\n")
+        print("===Opção inválida! Digite apenas 'y' ou 'n'.===\n")
 
 print("\n" + "="*50)
 print("FoodPredict AI - RESULTADOS\n")
 
-media = sum(pedidos) / len(pedidos)
+media = round(sum(pedidos) / len(pedidos), 2)
 
 print("Histórico de pedidos de cada dia:", pedidos)
 
-print(f"Média de pedidos por dia:{media:.1f}")
+print("Média de pedidos por dia:", media)
