@@ -19,9 +19,9 @@ while True:
     #.lower() transforma todos os caracteres de Maiusculos em minusculos
     # NOVIDADE: .strip() remove qualquer espaço se for adicionado
     if total_dias == 0:
-        pergunta = input("Deseja cadastar o primeiro dia de pedidos? (y/n): ").lower().strip()
+        pergunta = input("Deseja cadastrar o primeiro dia de pedidos? (y/n): ").lower().strip()
     else:
-        pergunta = input(f"Deseja cadastar o dia {total_dias +1} de pedidos? (y/n): ").lower().strip()
+        pergunta = input(f"Deseja cadastrar o dia {total_dias +1} de pedidos? (y/n): ").lower().strip()
 
 
 
@@ -35,20 +35,20 @@ while True:
         break             # <--- Só lé quando a lista não estiver vazia ai ele sai do loop e vai para o código a baixo
 
     
-    # Fluxo B: Cliente quer cadastar dados
+    # Fluxo B: Cliente quer cadastrar dados
     if pergunta == "y":
         try:              #<--- Gaiola de proteção em caso escrever (abc) ele trava e evita de crashar e vai para o "except"
             novo_pedido = int(input(f"Digite a quantidade de pedidos do dia {total_dias +1}: "))
 
             if novo_pedido <0:
-                print("❌ Erro: Não são aceitos némros negativos. Digite um valor válido.\n")
+                print("❌ Erro: Não são aceitos números negativos. Digite um valor válido.\n")
 
             else:
                 pedidos.append(novo_pedido)
                 print(f"✅ Sucesso: Dia {total_dias +1} cadastrado!\n")
 
         except ValueError:
-            print("❌ Erro: Entrada inválida! Por favor digite apenas némeros inteiros.\n")
+            print("❌ Erro: Entrada inválida! Por favor digite apenas números inteiros.\n")
 
     # Fluxo C: Cliente digitou qualquer outra coisa inválida
     else:
@@ -89,6 +89,34 @@ print(f"🌟 A sua média atual é de: {media} pedidos por dia")
 # Exibir os recordes do dia para o cliente comun
 print(f"🔥 Dia(s) com a maior quantidade de pedidos:  {dias_maiores} (com {maior_valor} pedidos)")
 print(f"🧊 Dia(s) com a menor quantidade de pedidos:  {dias_menores} (com {menor_valor} pedidos)")
+
+#4. Exibir variação entre os dias consecultivos (funciona só se tiver 2 dias ou mais).
+# if len() evita de mostrar um relatório com a seção vazia.
+if len(pedidos) > 1:
+    print("\n---------------------------------------------------------")
+    print("              ANÁLISE DE VARIAÇÃO DIÁRIA                   ")
+    print("---------------------------------------------------------")
+
+    # O range começa em indice 1 porque é no segundo dia e vai até o total da lista
+    for i in range(1, len(pedidos)):
+        dia_atual = pedidos[i]
+        dia_anterior = pedidos[i - 1]
+
+        # O 'i' é o indice do python(1, 2, 3...), e soma +1 que mostra o dia do cliente
+        if dia_atual > dia_anterior:
+            diferenca = dia_atual - dia_anterior
+            print(f"📈 Dia {i} para Dia {i + 1}: Crescimento | (+{diferenca} pedidos)")
+
+        elif dia_atual  < dia_anterior:
+            diferenca = dia_anterior - dia_atual
+            print(f"📉 Dia {i} para Dia {i + 1}: Queda       | (-{diferenca} pedidos)")
+
+        else:
+            print(f"➖ Dia {i} para Dia {i + 1}: Estável     | ( 0 variação)")
+
+else:
+        print("\n❗ Cadastre pelo menos 2 dias para visualizar a tendência de variação.")
+            
 
 print("\n=========================================================")
 print("     Obrigado por usar o FoodPredict AI Até a próxima.      ")
