@@ -97,22 +97,40 @@ if len(pedidos) > 1:
     print("              ANÁLISE DE VARIAÇÃO DIÁRIA                   ")
     print("---------------------------------------------------------")
 
+    # Criei 3 contadores zerados antes do 'for' começar e ir adicionando. (se tiver dentro ele zera toda vez que compara)
+    qtd_crescimento = 0
+    qtd_queda = 0 
+    qtd_estavel = 0
+
     # O range começa em indice 1 porque é no segundo dia e vai até o total da lista
     for i in range(1, len(pedidos)):
         dia_atual = pedidos[i]
         dia_anterior = pedidos[i - 1]
+        
 
         # O 'i' é o indice do python(1, 2, 3...), e soma +1 que mostra o dia do cliente
         if dia_atual > dia_anterior:
             diferenca = dia_atual - dia_anterior
             print(f"📈 Dia {i} para Dia {i + 1}: Crescimento | (+{diferenca} pedidos)")
+            
+            qtd_crescimento +=1               # <--- Soma +1 no contador de crescimento
 
         elif dia_atual  < dia_anterior:
             diferenca = dia_anterior - dia_atual
             print(f"📉 Dia {i} para Dia {i + 1}: Queda       | (-{diferenca} pedidos)")
+            
+            qtd_queda += 1                   # <--- Soma +1 no contador de queda
 
         else:
             print(f"➖ Dia {i} para Dia {i + 1}: Estável     | ( 0 variação)")
+
+            qtd_estavel += 1                 # <--- Soma +1 no contador de estavel
+
+    # Exibir placar final (alinhado com ele)
+    print("\n---------- Resumo das Variações Diárias ----------")
+    print(f"📈 Total de Intervalos em crescimento: {qtd_crescimento}")
+    print(f"📉 Total de Intervalos em queda:       {qtd_queda}")
+    print(f"➖ Total de Intervalos estaveis:       {qtd_estavel}")
 
 else:
         print("\n❗ Cadastre pelo menos 2 dias para visualizar a tendência de variação.")
