@@ -97,10 +97,12 @@ if len(pedidos) > 1:
     print("              ANÁLISE DE VARIAÇÃO DIÁRIA                   ")
     print("---------------------------------------------------------")
 
-    # Criei 3 contadores zerados antes do 'for' começar e ir adicionando. (se tiver dentro ele zera toda vez que compara)
+    # Criei 5 contadores zerados antes do 'for' começar e ir adicionando. (se tiver dentro ele zera toda vez que compara)
     qtd_crescimento = 0
     qtd_queda = 0 
-    qtd_estavel = 0
+    qtd_estavel = 0     
+    total_aumentos = 0  # <--- mais 1 adicionado
+    total_quedas = 0    # <--- mais 1 adicionado
 
     # O range começa em indice 1 porque é no segundo dia e vai até o total da lista
     for i in range(1, len(pedidos)):
@@ -113,13 +115,15 @@ if len(pedidos) > 1:
             diferenca = dia_atual - dia_anterior
             print(f"📈 Dia {i} para Dia {i + 1}: Crescimento | (+{diferenca} pedidos)")
             
-            qtd_crescimento +=1               # <--- Soma +1 no contador de crescimento
+            qtd_crescimento += 1               # <--- Soma +1 no contador de crescimento
+            total_aumentos  += diferenca       # <--- Adiciona o total de valor em crescimento
 
         elif dia_atual  < dia_anterior:
             diferenca = dia_anterior - dia_atual
             print(f"📉 Dia {i} para Dia {i + 1}: Queda       | (-{diferenca} pedidos)")
             
             qtd_queda += 1                   # <--- Soma +1 no contador de queda
+            total_quedas += diferenca        # <--- Adiciona o total de valor em quedas
 
         else:
             print(f"➖ Dia {i} para Dia {i + 1}: Estável     | ( 0 variação)")
@@ -131,6 +135,9 @@ if len(pedidos) > 1:
     print(f"📈 Total de Intervalos em crescimento: {qtd_crescimento}")
     print(f"📉 Total de Intervalos em queda:       {qtd_queda}")
     print(f"➖ Total de Intervalos estaveis:       {qtd_estavel}")
+    print(f"📊 Total de Aumentos:                  {total_aumentos}")
+    print(f"📊 Total de Quedas:                    {total_quedas}")
+    print(f"📊 Variação Liquida:                  {total_aumentos - total_quedas:+}") # <--- O (:+) é para adicionar o sinal "+" no resultado positivo
 
 else:
         print("\n❗ Cadastre pelo menos 2 dias para visualizar a tendência de variação.")
